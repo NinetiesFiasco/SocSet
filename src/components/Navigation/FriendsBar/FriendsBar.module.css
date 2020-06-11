@@ -1,0 +1,7 @@
+.content h3{
+  text-align: center;
+}
+.friendsContainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

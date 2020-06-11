@@ -1,0 +1,7 @@
+.user a{
+  color: white;
+  text-decoration: none;
+}
+.user a.activeLink{
+  color: gold;
+}
