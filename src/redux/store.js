@@ -1,5 +1,7 @@
-const ADD_POST = "ADD-POST",
-      UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
+import navigationReducer from "./navigationReducer";
+
 
 let store = {
   _state : {
@@ -14,11 +16,6 @@ let store = {
       newPostValue : ""
     },
     dialogsPage:{
-      messages : [
-        {id:1,txt:"Hi"},
-        {id:2,txt:"Hi Hi"},
-        {id:3,txt:"How are you?"}
-      ],
       users: [
         {id:1,name:"Anton"},
         {id:2,name:"Yana"},
@@ -26,8 +23,14 @@ let store = {
         {id:4,name:"Valera"},
         {id:5,name:"Kirill"},
         {id:6,name:"Sanya"},
-      ]
-    },
+      ],
+      messages : [
+        {id:1,txt:"Hi"},
+        {id:2,txt:"Hi Hi"},
+        {id:3,txt:"How are you?"}
+      ],
+      newMessageBody: ""
+    },    
     navigation:{
       links: [
         {to: "/profile",txt:"Profile"},
@@ -55,27 +58,15 @@ let store = {
   },
   
   dispatch(action){
-    if (action.type === ADD_POST){
-      let newPost = {
-        id: 5,
-        txt: this._state.profilePage.newPostValue,
-        likesCount: 0
-      };      
-      this._state.profilePage.posts.push(newPost);
-      this._state.profilePage.newPostValue = "";
-      this._callSubscriber(this.getState());
-    }else if (action.type === UPDATE_NEW_POST_TEXT){
-      this._state.profilePage.newPostValue = action.payload;
-      this._callSubscriber(this.getState());
-    }
+
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+    this._state.navigation = navigationReducer(this._state.navigation, action);
+    
+    this._callSubscriber(this);    
   }
 }
 
-export let addPostActionCreator = () => ({type: ADD_POST})
-export let updateNewPostTextActionCreator = (text) =>({
-    type: UPDATE_NEW_POST_TEXT,
-    payload: text
-  })
 
 
 export default store;
