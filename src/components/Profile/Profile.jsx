@@ -7,7 +7,7 @@ function Profile(props){
   return (
     <div className={s.content}>
       <ProfileInfo  src="https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg"/>
-    <MyPostsContainer store={props.store} />
+      <MyPostsContainer />
   </div>   );
 }
 
