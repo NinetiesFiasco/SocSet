@@ -2,27 +2,25 @@ import React from 'react';
 import s from './Navigation.module.css';
 import Link from './Links/Links.jsx';
 import FriendsBar from './FriendsBar/FriendsBar.jsx';
-import StoreContext from '../../StoreContext.js';
+import {connect} from 'react-redux';
 
 function Navigation(props){
 
+  let linksUI = props.links.map((lnk,key) => <Link key={key} to={lnk.to} txt={lnk.txt} />);
+
   return (
-<StoreContext.Consumer>
-  {store=>{
-  if (store==null)return <div>Netu stora</div>
-  let state = store.getState().navigationReducer;
-
-  if (state.links === undefined)
-  return <div>Добавьте друзей</div> 
-
-  let linksUI = state.links.map((lnk,key) => <Link key={key} to={lnk.to} txt={lnk.txt} />);
-  
-  return (<nav className={s.nav}>
+  <nav className={s.nav}>
     {linksUI}
-    <FriendsBar friends={state.friends} />
+    <FriendsBar friends={props.friends} />
   </nav>)
-}}
-</StoreContext.Consumer>);
 }
 
-export default Navigation;
+export default connect(
+  (state) => {
+    return {
+      links: state.navigationReducer.links,
+      friends: state.navigationReducer.friends
+    }
+  },
+  (dispatch) => {return {};}
+)(Navigation);

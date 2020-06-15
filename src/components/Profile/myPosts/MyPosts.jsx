@@ -15,7 +15,7 @@ function MyPosts(props){
   }
 
   let postsUI = props.posts.map((post,key)=><Post key={key} txt={post.txt} likesCount={post.likesCount}/>);
-  
+
   return (
   <div className={s.postsContainer}>
     <div>      
