@@ -3,6 +3,7 @@ import {sendMessageCreator,updateNewMessageCreator} from '../../redux/dialogsRed
 import {connect} from 'react-redux';
 
 let mapStateToProps = (state)=>{
+  debugger;
   return{
     newMessageBody:state.dialogsReducer.newMessageBody,
     users: state.dialogsReducer.users,
@@ -12,10 +13,13 @@ let mapStateToProps = (state)=>{
 let mapDispatchToProps = (dispatch)=>{
   return {
     onNewMessageChange: (body)=>{
-      dispatch(updateNewMessageCreator(body));
+      debugger;
+      let action = updateNewMessageCreator(body);
+      dispatch(action);
     },
     onSendMessageClick: ()=>{
-      dispatch(sendMessageCreator());
+      let action = sendMessageCreator();
+      dispatch(action);
     }
   }
 }

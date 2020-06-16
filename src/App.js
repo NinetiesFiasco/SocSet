@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route,BrowserRouter} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header.jsx';
 import Navigation from './components/Navigation/Navigation.jsx';
@@ -11,7 +11,6 @@ import Settings from './components/Settings/Settings.jsx';
 
 function App(props) {
   return (
-<BrowserRouter>
   <div className="app-wrapper">
     <Header/>    
     <Navigation />
@@ -23,7 +22,6 @@ function App(props) {
       <Route component={Settings} path="/settings" />      
     </div>
   </div>
-</BrowserRouter>
   );
 }
 
