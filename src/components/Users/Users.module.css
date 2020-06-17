@@ -1,0 +1,17 @@
+.avatar{
+  width: 75px;
+}
+
+.defaultPage{
+  font-size: 14px;
+  padding: 4px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 3px;
+}
+.defaultPage:hover{
+  color: grey;
+}
+.currentPage{
+  font-weight: bold;
+}

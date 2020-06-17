@@ -16,7 +16,6 @@ function Dialogs(props){
     let body = e.target.value;
     props.onNewMessageChange(body);
   }
-debugger;
   return (
 <div className={s.dialogs}> 
   <div className={s.dialogsItems}>

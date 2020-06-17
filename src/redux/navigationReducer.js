@@ -5,6 +5,7 @@ let initialState = {
     {to: "/news",txt:"News"},
     {to: "/music",txt:"Music"},
     {to: "/settings",txt:"Settings"},
+    {to: "/users", txt:"Users"}
   ],
   friends: [
     {name: "Kolya",avatar: "#"},
