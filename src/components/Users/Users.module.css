@@ -7,7 +7,7 @@
   padding: 4px;
   cursor: pointer;
   display: inline-block;
-  margin: 3px;
+  margin: 3px 1px;
 }
 .defaultPage:hover{
   color: grey;

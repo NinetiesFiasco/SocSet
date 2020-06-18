@@ -7,3 +7,7 @@
 .header img{
   width: 10%;
 }
+
+.loginBlock{
+  border: 1px solid red;
+}

@@ -1,7 +1,26 @@
 .img{
-  width: 100%;
+  width: 255px;
+  z-index: 1;
 }
 
 .description{
   padding: 10px;
+}
+
+.container{
+  position: relative;
+}
+
+.background{
+  width: 100%;
+  display: block;
+  opacity: 0.1;
+  margin: auto;
+  z-index: 0;
+}
+
+.backgroundContainer{
+  height: 100px;  
+  position: absolute;
+  width: inherit;
 }

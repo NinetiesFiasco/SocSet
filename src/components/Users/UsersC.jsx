@@ -7,16 +7,15 @@ class Users extends React.Component{
 
   constructor(props){
     super(props);
-
     this.setUsers = this.setUsers.bind(this);
   }
 
   componentDidMount(){
-    this.setUsers();
+    this.setUsers(this.props.currentPage);
   }  
 
-  setUsers(){
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize }`).then(response =>{
+  setUsers(page){
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize }`).then(response =>{
       this.props.setUsers(response.data.items);
       this.props.setTotalUsersCount(response.data.totalCount)
     });
@@ -24,25 +23,31 @@ class Users extends React.Component{
 
   onPageChanged(p){
     this.props.setCurrentPage(p);
-    this.setUsers();
+    this.setUsers(p);
   }
   
-  render(){  
-    debugger;
+  render(){
     let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
     let pages = [];
-    for (var i=1;i<=pagesCount;i++)
-      pages.push(i);
+
+    let pagesUI;
+    let curPage = this.props.currentPage;
+
+    for (var i = curPage-5; i<=curPage+5;i++)
+      if (i>=1 && i <= pagesCount)
+        pages.push(i);
+
+    pagesUI = pages.map(p => {return <span 
+      onClick={()=>{this.onPageChanged(p)}}          
+      className={s.defaultPage + " " +(curPage===p?s.currentPage:"")}
+    >{p}</span>})
 
   return (
 <div className={s.content}>
   <div>
-    {
-      pages.map(p => {return <span 
-        onClick={()=>{this.onPageChanged(p)}}          
-        className={s.defaultPage + " " +(this.props.currentPage===p?s.currentPage:"")}
-      >{p}</span>})
-    }
+    <span onClick={()=>{ this.onPageChanged(1)}} className={s.defaultPage}>{"<<"}</span>
+    {pagesUI}
+    <span onClick={()=>{this.onPageChanged(pagesCount)} }className={s.defaultPage}>{">>"}</span>
   </div>
   {
     this.props.users.map(u => {return <div key={u.id}>

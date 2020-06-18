@@ -6,6 +6,7 @@ function Header(){
   return (
 <header className={s.header}>
   <img alt="Logo" src="https://ru.reactjs.org/logo-og.png"/>
+  <div className={s.loginBlock}></div>
 </header>)
 }
 
