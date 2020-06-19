@@ -10,4 +10,8 @@
 
 .loginBlock{
   border: 1px solid red;
+  float: right;
+}
+.loginBlock a{
+  color: white;
 }
