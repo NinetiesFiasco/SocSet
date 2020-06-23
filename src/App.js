@@ -9,25 +9,25 @@ import News from './components/News/News.jsx';
 import Music from './components/Music/Music.jsx';
 import Settings from './components/Settings/Settings.jsx';
 import Users from './components/Users/UsersContainer.jsx';
+import Default from './components/Default/Default.jsx';
 
-
-function App(props) {
+function App(props){
   return (
   <div className="app-wrapper">
-    <Header/>    
-    <Navigation />
+    <Header/>
+    <Navigation/>
     <div className="mainContent">
-      <Route render={()=><DialogsContainer  />} path="/dialogs" />
-      <Route render={()=><Profile />} path="/profile/:id" />
-      <Route render={()=><Profile />} path="/profile" exact />
-      <Route component={News} path="/news" />      
-      <Route component={Music} path="/music" />      
-      <Route component={Settings} path="/settings" />
-      <Route component={Users} path="/users" />   
+      <Route render={()=><DialogsContainer/>} path="/dialogs"/>
+      <Route render={()=><Profile/>} path="/profile/:id"/>
+      <Route render={()=><Profile/>} path="/profile" exact/>
+      <Route component={Settings} path="/settings"/>
+      <Route component={Music} path="/music"/>
+      <Route component={Users} path="/users"/>
+      <Route component={News} path="/news"/>
+      <Route component={Default} path="/" exact/>
     </div>
   </div>
   );
 }
-
 
 export default App;

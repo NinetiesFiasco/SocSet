@@ -2,10 +2,9 @@ import React from 'react';
 import s from './Users.module.css';
 import userPhoto from '../../assets/images/userIcon.png';
 import {NavLink} from 'react-router-dom';
-import * as axios from 'axios';
+import {followDAL,unfollowDAL} from '../../api/api.js';
 
 let Users = (props) => {
-
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
   let pages = [];
 
@@ -23,6 +22,22 @@ let Users = (props) => {
       className={s.defaultPage + " " + (curPage === p ? s.currentPage : "")}
     >{p}</span>
   });
+
+  let follow = (id) => {
+    props.toggleIsFollowingProgress(true,id);
+    followDAL(id).then(()=>{
+      props.follow(id);
+      props.toggleIsFollowingProgress(false,id);
+    })
+  }
+
+  let unfollow = (id) => {
+    props.toggleIsFollowingProgress(true,id);
+    unfollowDAL(id).then(()=>{
+      props.unfollow(id);
+      props.toggleIsFollowingProgress(false,id );
+    })
+  }
 
   return (
     <div className={s.content}>
@@ -43,41 +58,18 @@ let Users = (props) => {
               <div>
                 {
                   u.followed
-                    ? <button onClick={() => {
-                      axios.delete(`https://social-network.samuraijs.com/api/1.0/unfollow/${u.id}`,null,{
-                        withCredentials: true,
-                        headers: {
-                          "API-KEY":"b3133ae9-04b8-44c3-8a3f-cda6c4d6b193"
-                        }                        
-                      }).then(response =>{
-                        if (response.data.resultCode === 0){
-                          props.unfollow(u.id)
-                        }                        
-                      });
-                    }}>Unfollow</button>
-                    : <button onClick={() => {
-                      
-                      axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,null,{
-                        withCredentials: true,
-                        headers: {
-                          "API-KEY":"b3133ae9-04b8-44c3-8a3f-cda6c4d6b193"
-                        }                        
-                      }).then(response =>{
-                        if (response.data.resultCode === 0){                          
-                          props.follow(u.id)
-                        }
-                      });                    
-                    }}>Follow</button>
+                    ? <button disabled={props.followingInProgress.some(id => id===u.id)} onClick={() => {unfollow(u.id)}}>Unfollow</button> 
+                    : <button disabled={props.followingInProgress.some(id => id===u.id)} onClick={()=>{follow(u.id)}}>Follow</button>
                 }
               </div>
-            </span>
+            </span>  
             <span>
               <span>
                 <div>{u.name}</div>
                 <div>{u.status}</div>
               </span>
               <span>
-                <div>{"u.location.country"}</div>  
+                <div>{"u.location.country"}</div>
                 <div>{"u.location.city"}</div>
               </span>
             </span>

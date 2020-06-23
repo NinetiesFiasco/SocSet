@@ -1,10 +1,11 @@
 
-const FOLLOW = "FOLLOW",
-UNFOLLOW = "UNFOLLOW",
-SET_USERS = "SET_USERS",
-SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT",
-SET_CURRENT_PAGE = "SET_CURRENT_PAGE",
-SET_IS_FETCHING = "SET_IS_FETCHING";
+const FOLLOW = "FOLLOW";
+const UNFOLLOW = "UNFOLLOW";
+const SET_USERS = "SET_USERS";
+const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const SET_IS_FETCHING = "SET_IS_FETCHING";
+const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS";
 
 export const follow = (userId) => ({type: FOLLOW,userId});
 export const unfollow = (userId) => ({type: UNFOLLOW,userId}); 
@@ -12,6 +13,7 @@ export const setUsers = (users) => ({type: SET_USERS,users});
 export const setTotalUsersCount = (count) =>({type: SET_TOTAL_USERS_COUNT,count});
 export const setCurrentPage = (number) =>({type: SET_CURRENT_PAGE, number});
 export const setIsFetching = (isFetching) => ({type: SET_IS_FETCHING,isFetching})
+export const toggleIsFollowingProgress = (isFollowing,userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS,isFollowing,userId})
 
 
 let initialState = {
@@ -19,7 +21,8 @@ let initialState = {
   pageSize: 12,
   totalUsersCount: 0,
   currentPage: 1,
-  isFetching: false
+  isFetching: false,
+  followingInProgress: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -61,11 +64,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         currentPage: action.number
       }
-    case SET_IS_FETCHING:
-      return {
-        ...state,
-        isFetching: action.isFetching
-      }
+      case SET_IS_FETCHING:
+        return {
+          ...state,
+          isFetching: action.isFetching
+        }
+      case TOGGLE_IS_FOLLOWING_PROGRESS:
+        return {
+          ...state,
+          followingInProgress:
+            action.isFollowing
+                ?[...state.followingInProgress, action.userId]
+                :state.followingInProgress.filter(id => id !== action.userId)
+              
+        }
 
     default: return state;    
   }
