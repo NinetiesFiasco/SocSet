@@ -2,7 +2,6 @@ import React from 'react';
 import s from './Users.module.css';
 import userPhoto from '../../assets/images/userIcon.png';
 import {NavLink} from 'react-router-dom';
-import {followDAL,unfollowDAL} from '../../api/api.js';
 
 let Users = (props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -23,22 +22,6 @@ let Users = (props) => {
     >{p}</span>
   });
 
-  let follow = (id) => {
-    props.toggleIsFollowingProgress(true,id);
-    followDAL(id).then(()=>{
-      props.follow(id);
-      props.toggleIsFollowingProgress(false,id);
-    })
-  }
-
-  let unfollow = (id) => {
-    props.toggleIsFollowingProgress(true,id);
-    unfollowDAL(id).then(()=>{
-      props.unfollow(id);
-      props.toggleIsFollowingProgress(false,id );
-    })
-  }
-
   return (
     <div className={s.content}>
       <div>
@@ -58,8 +41,14 @@ let Users = (props) => {
               <div>
                 {
                   u.followed
-                    ? <button disabled={props.followingInProgress.some(id => id===u.id)} onClick={() => {unfollow(u.id)}}>Unfollow</button> 
-                    : <button disabled={props.followingInProgress.some(id => id===u.id)} onClick={()=>{follow(u.id)}}>Follow</button>
+                    ? <button 
+                        disabled={props.followingInProgress.some(id => id===u.id)} 
+                        onClick={() => {props.unfollow(u.id)}}
+                      >Unfollow</button> 
+                    : <button 
+                        disabled={props.followingInProgress.some(id => id===u.id)} 
+                        onClick={()=>{props.follow(u.id)}}
+                      >Follow</button>
                 }
               </div>
             </span>  
