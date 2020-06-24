@@ -10,6 +10,7 @@ import Music from './components/Music/Music.jsx';
 import Settings from './components/Settings/Settings.jsx';
 import Users from './components/Users/UsersContainer.jsx';
 import Default from './components/Default/Default.jsx';
+import Login from './components/Login/Login.jsx';
 
 function App(props){
   return (
@@ -24,6 +25,7 @@ function App(props){
       <Route component={Music} path="/music"/>
       <Route component={Users} path="/users"/>
       <Route component={News} path="/news"/>
+      <Route component={Login} path="/login"/>
       <Route component={Default} path="/" exact/>
     </div>
   </div>

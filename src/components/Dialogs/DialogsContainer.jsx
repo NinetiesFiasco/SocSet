@@ -1,15 +1,18 @@
 import Dialogs from './Dialogs.jsx';
 import {sendMessageCreator,updateNewMessageCreator} from '../../redux/dialogsReducer.js';
 import {connect} from 'react-redux';
+import { withAuthRedirect } from '../../hoc/WithAuthRedirect.js';
+import { compose } from 'redux';
 
-let mapStateToProps = (state)=>{
+let mstp = (state)=>{
   return{
     newMessageBody:state.dialogsReducer.newMessageBody,
     users: state.dialogsReducer.users,
-    messages: state.dialogsReducer.messages
+    messages: state.dialogsReducer.messages,
+    isAuth: state.authReducer.isAuth
   };
 }
-let mapDispatchToProps = (dispatch)=>{
+let mdtp = (dispatch)=>{
   return {
     onNewMessageChange: (body)=>{
       let action = updateNewMessageCreator(body);
@@ -22,6 +25,19 @@ let mapDispatchToProps = (dispatch)=>{
   }
 }
 
-const SuperDialogsContainer = connect(mapStateToProps,mapDispatchToProps)(Dialogs);
+export default compose(
+  connect(mstp,mdtp),
+  withAuthRedirect
+)(Dialogs)
+/*
+let mstpForRedirect = (state)=>{
+  return{
+  };
+}
 
-export default SuperDialogsContainer;
+let AuthRedirectComponent = withAuthRedirect(Dialogs)
+AuthRedirectComponent = connect(mstpForRedirect,{})(AuthRedirectComponent);
+
+const SuperDialogsContainer = connect(mstp,mapDispatchToProps)(AuthRedirectComponent);
+
+export default SuperDialogsContainer;*/

@@ -4,7 +4,6 @@ import Message from './Messages/Messages.jsx';
 import User from './User/User.jsx';
 
 function Dialogs(props){
-
   let usersUI = props.users.map((usr,key) => <User key={key} id={usr.id} name={usr.name} />);
   let messagesUI = props.messages.map((msg,key) => <Message key={key} txt={msg.txt}/>);
   
@@ -16,6 +15,7 @@ function Dialogs(props){
     let body = e.target.value;
     props.onNewMessageChange(body);
   }
+
   return (
 <div className={s.dialogs}> 
   <div className={s.dialogsItems}>
