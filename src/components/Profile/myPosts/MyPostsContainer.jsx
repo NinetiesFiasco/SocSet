@@ -1,25 +1,22 @@
-import {addPostActionCreator,updateNewPostTextActionCreator} from '../../../redux/profileReducer.js';
+import {addPostActionCreator} from '../../../redux/profileReducer.js';
 import MyPosts from './MyPosts.jsx';
 import {connect} from 'react-redux';
 
-let mapStateToProps = (state) => {
+let mstp = (state) => {
   return {
     posts: state.profileReducer.posts,
     newPostValue: state.profileReducer.newPostValue
   }
 }
 
-let mapDispatchToProps = (dispatch) => {
+let mdtp = (dispatch) => {
   return {
-    updateNewPostText: (text) =>{
-      dispatch(updateNewPostTextActionCreator(text))
-    },
-    addPost: () => {
-      dispatch(addPostActionCreator());
+    addPost: (newPostText) => {
+      dispatch(addPostActionCreator(newPostText));
     }
   }
 }
 
-const MyPostsContainer = connect(mapStateToProps,mapDispatchToProps)(MyPosts);
+const MyPostsContainer = connect(mstp,mdtp)(MyPosts);
 
 export default MyPostsContainer;

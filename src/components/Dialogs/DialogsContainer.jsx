@@ -1,5 +1,5 @@
 import Dialogs from './Dialogs.jsx';
-import {sendMessageCreator,updateNewMessageCreator} from '../../redux/dialogsReducer.js';
+import {sendMessageCreator} from '../../redux/dialogsReducer.js';
 import {connect} from 'react-redux';
 import { withAuthRedirect } from '../../hoc/WithAuthRedirect.js';
 import { compose } from 'redux';
@@ -14,12 +14,8 @@ let mstp = (state)=>{
 }
 let mdtp = (dispatch)=>{
   return {
-    onNewMessageChange: (body)=>{
-      let action = updateNewMessageCreator(body);
-      dispatch(action);
-    },
-    onSendMessageClick: ()=>{
-      let action = sendMessageCreator();
+    onSendMessageClick: (newMessageBody)=>{
+      let action = sendMessageCreator(newMessageBody);
       dispatch(action);
     }
   }

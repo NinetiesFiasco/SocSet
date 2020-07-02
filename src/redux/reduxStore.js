@@ -5,13 +5,15 @@ import navigationReducer from './navigationReducer';
 import usersReducer from './usersReducer';
 import authReducer from './authReducer';
 import thunkMiddleware from 'redux-thunk';
+import {reducer as formReducer} from 'redux-form';
 
 let reducers = combineReducers({
   profileReducer,
   dialogsReducer,
   navigationReducer,
   usersReducer,
-  authReducer
+  authReducer,
+  form: formReducer
 });
 
 let store = createStore(reducers,applyMiddleware(thunkMiddleware));

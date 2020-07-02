@@ -1,7 +1,7 @@
 import React from 'react';
 import Profile from './Profile.jsx';
 import {connect} from 'react-redux';
-import {getUserProfile} from '../../redux/profileReducer.js';
+import {getUserProfile,getStatus,updateStatus} from '../../redux/profileReducer.js';
 import { withRouter } from 'react-router-dom';
 //import { withAuthRedirect } from '../../hoc/WithAuthRedirect.js';
 import { compose } from 'redux';
@@ -12,9 +12,10 @@ class ProfileContainer extends React.Component {
     // Это кажись with url возвращает в props параметры из url
     let id = this.props.match.params.id;  
     if (!id) 
-      id=2
+      id=8864
 
     this.props.getUserProfile(id);
+    this.props.getStatus(id); 
   }
 
   render() {    
@@ -25,28 +26,11 @@ class ProfileContainer extends React.Component {
 
 let mstp = (state) => {return {
   profile: state.profileReducer.profile,
-  isAuth: state.authReducer.isAuth
+  status: state.profileReducer.status
 }};
 
 export default compose(
-  connect(mstp,{getUserProfile}),
+  connect(mstp,{getUserProfile,getStatus,updateStatus}),
   withRouter,
   //withAuthRedirect
 )(ProfileContainer);
-
-
-/*
-let mstpForRedirect = (state) => {return {
-  isAuth: state.authReducer.isAuth
-}};
-
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-AuthRedirectComponent = connect(mstpForRedirect,{})(AuthRedirectComponent);
-
-
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
-  
-
-export default connect(mstp,{
-  getUserProfile
-})(WithUrlDataContainerComponent);*/
