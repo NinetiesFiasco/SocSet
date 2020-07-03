@@ -12,7 +12,7 @@ class ProfileContainer extends React.Component {
     // Это кажись with url возвращает в props параметры из url
     let id = this.props.match.params.id;  
     if (!id) 
-      id=8864
+      id=this.props.authorizedUserId
 
     this.props.getUserProfile(id);
     this.props.getStatus(id); 
@@ -26,7 +26,9 @@ class ProfileContainer extends React.Component {
 
 let mstp = (state) => {return {
   profile: state.profileReducer.profile,
-  status: state.profileReducer.status
+  status: state.profileReducer.status,
+  authorizedUserId: state.authReducer.userId,
+  isAuth: state.authReducer.isAuth
 }};
 
 export default compose(

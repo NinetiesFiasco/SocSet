@@ -3,6 +3,8 @@ import s from './Dialogs.module.css';
 import Message from './Messages/Messages.jsx';
 import User from './User/User.jsx';
 import {reduxForm,Field} from 'redux-form';
+import { Textarea } from '../Common/FormsControls/FormsControls';
+import { requiredField, maxLengthCreator } from '../../utils/validators/validators';
 
 function Dialogs(props){
   let usersUI = props.users.map((usr,key) => <User key={key} id={usr.id} name={usr.name} />);
@@ -24,12 +26,14 @@ function Dialogs(props){
 </div>)
 }
 
+let lengthValidate = maxLengthCreator(20);
+
 const AddMessageForm = (props) =>{
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
         <div>
-          <Field component="textarea" name="newMessageBody" placeholder="Enter your message" />
+          <Field component={Textarea} validate={[requiredField,lengthValidate]} name="newMessageBody" placeholder="Enter your message" />
         </div>
         <div><button>Send</button></div>
       </div>
