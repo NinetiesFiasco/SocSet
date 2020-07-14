@@ -5,11 +5,11 @@ import Preloader from '../Common/Preloader/Preloader.jsx';
 
 import {
   follow,
-  unfollow,  
+  unfollow,
   getUsers
 } from '../../redux/usersReducer.js'; 
 import { compose } from 'redux';
-import { withAuthRedirect } from '../../hoc/WithAuthRedirect.js';
+import { getPageSize, getUsersSelector, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/usersSelector.js';
 
 class UsersContainer extends React.Component{
 
@@ -43,7 +43,7 @@ class UsersContainer extends React.Component{
   }
 }
 
-
+/*
 let mapStateToProps = (state) => {
   return {
     users: state.usersReducer.users,
@@ -55,10 +55,20 @@ let mapStateToProps = (state) => {
     isAuth: state.authReducer.isAuth
   }
 }
+*/
+let mapStateToProps = (state) => {
+  return {
+    users: getUsersSelector(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state)
+  }
+}
 
 export default compose(
   connect(mapStateToProps,
     {follow,unfollow,getUsers}
-  ),
-  withAuthRedirect
+  )
 )(UsersContainer);

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
+import {Route, withRouter} from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/HeaderContainer.jsx';
 import Navigation from './components/Navigation/Navigation.jsx';
@@ -11,25 +11,48 @@ import Settings from './components/Settings/Settings.jsx';
 import Users from './components/Users/UsersContainer.jsx';
 import Default from './components/Default/Default.jsx';
 import Login from './components/Login/Login.jsx';
+import {connect} from 'react-redux';
+import {initializeApp} from './redux/appReducer';
+import { compose } from 'redux';
+import Preloader from './components/Common/Preloader/Preloader';
 
-function App(props){
-  return (
-  <div className="app-wrapper">
-    <Header/>
-    <Navigation/>
-    <div className="mainContent">
-      <Route render={()=><DialogsContainer/>} path="/dialogs"/>
-      <Route render={()=><Profile/>} path="/profile/:id"/>
-      <Route render={()=><Profile/>} path="/profile" exact/>
-      <Route component={Settings} path="/settings"/>
-      <Route component={Music} path="/music"/>
-      <Route component={Users} path="/users"/>
-      <Route component={News} path="/news"/>
-      <Route component={Login} path="/login"/>
-      <Route component={Default} path="/" exact/>
-    </div>
-  </div>
-  );
+class App extends React.Component {
+
+  componentDidMount(){
+    this.props.initializeApp();
+  }
+
+  render() {
+    if (!this.props.initialized){
+      return <div><h1>Load</h1><Preloader /></div>
+    }
+    return (
+      <div className="app-wrapper">
+        <Header/>
+        <Navigation/>
+        <div className="mainContent">
+          <Route render={()=><DialogsContainer/>} path="/dialogs"/>
+          <Route render={()=><Profile/>} path="/profile/:id"/>
+          <Route render={()=><Profile/>} path="/profile" exact/>
+          <Route render={()=><Settings/>} path="/settings"/>
+          <Route render={()=><Music/>} path="/music"/>
+          <Route render={()=><Users/>} path="/users"/>
+          <Route render={()=><News/>} path="/news"/>
+          <Route render={()=><Login/>} path="/login"/>
+          <Route render={()=><Default/>} path="/" exact/>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default App;
+let mstp = (state) => {
+  return {
+    initialized: state.appReducer.initialized
+  }
+}
+
+export default compose(
+  withRouter,
+  connect(mstp,{initializeApp})
+)(App);

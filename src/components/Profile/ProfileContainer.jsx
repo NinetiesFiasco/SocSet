@@ -11,9 +11,11 @@ class ProfileContainer extends React.Component {
   componentDidMount() {
     // Это кажись with url возвращает в props параметры из url
     let id = this.props.match.params.id;  
-    if (!id) 
+    if (!id) {
       id=this.props.authorizedUserId
-
+      
+      if (!id){this.props.history.push("/login");}
+    }
     this.props.getUserProfile(id);
     this.props.getStatus(id); 
   }
