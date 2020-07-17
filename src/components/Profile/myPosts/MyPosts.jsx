@@ -6,13 +6,14 @@ import { requiredField, maxLengthCreator } from '../../../utils/validators/valid
 import { Textarea } from '../../Common/FormsControls/FormsControls';
 
 
-function MyPosts(props){
+const MyPosts = React.memo((props) => {
   
   let onAddPost = (values) => {
     props.addPost(values.newPostText);
   }
    
-  let postsUI = props.posts.map((post,key)=><Post key={key} txt={post.txt} likesCount={post.likesCount}/>);
+  // Иммутабельность (без спреда реверс будет разворачивать объект каждую отрисовку)
+  let postsUI = [...props.posts].reverse().map((post,key)=><Post key={key} txt={post.txt} likesCount={post.likesCount}/>);
 
   return (
   <div className={s.postsContainer}>
@@ -27,7 +28,7 @@ function MyPosts(props){
     </div>
   </div>
    );
-}
+});
 
 let lengthValidator = maxLengthCreator(30);
 const NewPostForm = (props) => {

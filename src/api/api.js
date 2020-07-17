@@ -14,10 +14,10 @@ export const usersAPI = {
       .then(response => response.data); 
   },
   follow: (id) => {
-    return instance.post(`follow/${id}`).then(() => {return});                    
+    return instance.post(`follow/${id}`);
   },
   unfollow: (id) => {
-    return instance.delete(`follow/${id}`).then(() => {return});
+    return instance.delete(`follow/${id}`);
   },
   getProfile: (id) => {
     console.warn("Obsolete method. Please profileAPI object.");

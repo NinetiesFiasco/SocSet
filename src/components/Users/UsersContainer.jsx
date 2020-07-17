@@ -19,11 +19,13 @@ class UsersContainer extends React.Component{
   }
 
   componentDidMount(){
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    let {currentPage,pageSize} = this.props;
+    this.props.getUsers(currentPage, pageSize);
   }
 
   onPageChanged(p){
-    this.props.getUsers(p, this.props.pageSize);
+    let {pageSize} = this.props;
+    this.props.getUsers(p, pageSize);
   }
 
   render(){
@@ -43,19 +45,6 @@ class UsersContainer extends React.Component{
   }
 }
 
-/*
-let mapStateToProps = (state) => {
-  return {
-    users: state.usersReducer.users,
-    pageSize: state.usersReducer.pageSize,
-    totalUsersCount: state.usersReducer.totalUsersCount,
-    currentPage: state.usersReducer.currentPage,
-    isFetching: state.usersReducer.isFetching,
-    followingInProgress: state.usersReducer.followingInProgress,
-    isAuth: state.authReducer.isAuth
-  }
-}
-*/
 let mapStateToProps = (state) => {
   return {
     users: getUsersSuper(state),
