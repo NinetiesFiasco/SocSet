@@ -50,4 +50,4 @@ test("Delete don't work with bad ID", () => {
 
 
 
-profileReducer
+//profileReducer
