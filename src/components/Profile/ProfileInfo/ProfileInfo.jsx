@@ -1,39 +1,54 @@
-import React from 'react';
+import React,{useState} from 'react';
 import s from './ProfileInfo.module.css';
 import Preloader from '../../Common/Preloader/Preloader.jsx';
 import ProfileStatusHooks from './ProfileStatus/ProfileStatusHooks.jsx';
+import userPhoto from '../../../assets/images/userIcon.png';
+import ProfileDataForm from './ProfileDataForm';
+import ProfileData from './ProfileData';
 
-const ProfileInfo = (props)=>{
-  if (props.profile==null)
+const ProfileInfo = ({profile,status,updateStatus,isOwner,savePhoto, saveProfile})=>{
+
+  let [editMode,setEditMode] = useState(false);
+
+  if (profile==null)
     return <Preloader />;
 
-  let p = props.profile;
-  let photoUrl = p.photos == null
-    ? "#"
-    :p.photos.large;
-    
+  let p = profile;
+
+  const onMainPhotoSelected = (e) => {
+    if (e.target.files.length){
+      savePhoto(e.target.files[0]);
+    }
+  }
+
+  const onSubmit = (formData) => {
+    saveProfile(formData).then(()=>{
+      setEditMode(false); 
+    });    
+  }
+  
   return (<div className={s.container}>
-  {/*<div className={s.backgroundContainer}>
-    <img className={s.background} src="https://artworld.ru/images/cms/content/catalog2/kartina_v_interier_pejzazh_maslom_nad_rekoj_zakat_zagoralsya_ki200103.jpg" alt="Background"></img>
-  </div>*/}
   <div>
-    <img alt="background" className={s.img} src={photoUrl}/>
-    <ProfileStatusHooks status={props.status} updateStatus={props.updateStatus} />
+    <img alt="background" className={s.img} src={p.photos.large || userPhoto}/>
+    {isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+    <ProfileStatusHooks status={status} updateStatus={updateStatus} />
   </div>
-  <div>
-    {props.profile.fullName}
-  </div>
-  <div className={s.description}>
-    {p.aboutMe}<br/>
-    {p.lookingForAJob}
-  </div>
+
   <div className={s.contacts}>
-    FaceBook {p.contacts.facebook}<br/>
-    WebSite {p.contacts.website}<br/>
-    VK {p.contacts.vk}<br/>
-    Twitter {p.contacts.twitter}<br/>
-    Instagram {p.contacts.instagram}<br/>
+    { editMode 
+      ? <ProfileDataForm
+          initialValues={p}
+          profile={p}
+          onSubmit={onSubmit}
+        />
+      : <ProfileData
+          profile={p}
+          isOwner={isOwner}
+          goToEditMode={()=>{setEditMode(true)}}
+        />
+    }
   </div>
+
 </div>
   )
 }

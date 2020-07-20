@@ -1,10 +1,6 @@
 .img{
-  width: 255px;
+  max-width: 200px;
   z-index: 1;
-}
-
-.description{
-  padding: 10px;
 }
 
 .container{
@@ -23,4 +19,7 @@
   height: 100px;  
   position: absolute;
   width: inherit;
+}
+.contacts{
+  padding-left: 10px;
 }

@@ -28,6 +28,9 @@ export const initializeApp = () => (dispatch) => {
     .then(()=>{
       dispatch(initializedSuccess());
     });
+
+ //   dispatch(initializedSuccess());
+  
 }
  
 export default appReducer;
