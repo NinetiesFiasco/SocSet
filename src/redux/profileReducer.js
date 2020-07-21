@@ -1,11 +1,13 @@
 import {usersAPI,profileAPI} from '../api/api';
 import { stopSubmit } from 'redux-form';
 
-const ADD_POST = "SocSet/profile/ADD-POST";
-const SET_USER_PROFILE = "SocSet/profile/SET_USER_PROFILE";
-const SET_STATUS = "SocSet/profile/SET_STATUS";
-const DELETE_POST = "SocSet/profile/DELETE_POST";
-const SAVE_PHOTO_SUCCESS = "SocSet/profile/SAVE_PHOTO_SUCCESS";
+const prfx = (v) => "SocSet/profile/"+v;
+
+const ADD_POST = prfx("ADD-POST");
+const SET_USER_PROFILE = prfx("SET_USER_PROFILE");
+const SET_STATUS = prfx("SET_STATUS");
+const DELETE_POST = prfx("DELETE_POST");
+const SAVE_PHOTO_SUCCESS = prfx("SAVE_PHOTO_SUCCESS");
 
 let initialState = {
   posts: [

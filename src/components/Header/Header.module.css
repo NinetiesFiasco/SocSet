@@ -1,7 +1,7 @@
 
 .header{
   grid-area: h;
-  background: red;
+  background:rgb(198, 245, 162);
 }
 
 .header img{
@@ -9,7 +9,6 @@
 }
 
 .loginBlock{
-  border: 1px solid red;
   float: right;
 }
 .loginBlock a{

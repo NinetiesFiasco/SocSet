@@ -5,7 +5,6 @@ import {NavLink} from 'react-router-dom';
 function Header(props){
   return (
 <header className={s.header}>
-  <img alt="Logo" src="https://ru.reactjs.org/logo-og.png"/>
   <div className={s.loginBlock}>
     {      
       props.isAuth

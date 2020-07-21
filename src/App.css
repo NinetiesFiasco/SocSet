@@ -13,6 +13,5 @@
 
 .mainContent{  
   grid-area: c;
-  background:purple;
-  
+  background: rgb(236, 255, 222);
 }

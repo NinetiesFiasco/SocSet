@@ -1,8 +1,10 @@
 import { getAuthUserData } from './authReducer';
 
-const SET_INITIALIZED = "SET_INITIALIZED";
+const prfx = (val)=>"SocSet/app/"+val;
 
-let initialState = {
+const SET_INITIALIZED = prfx("SET_INITIALIZED");
+
+const initialState = {
   initialized: false,
 };
 
@@ -25,12 +27,9 @@ export const initializeApp = () => (dispatch) => {
   let promise = dispatch(getAuthUserData());
   
   Promise.all([promise])
-    .then(()=>{
+    .then(()=>{      
       dispatch(initializedSuccess());
     });
-
- //   dispatch(initializedSuccess());
-  
 }
  
 export default appReducer;
