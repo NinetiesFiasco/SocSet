@@ -2,26 +2,26 @@ import React from 'react';
 import {Route, withRouter, Redirect} from 'react-router-dom';
 import './App.css';
 
-import store from './redux/reduxStore.js';
+import store from './redux/reduxStore';
 import { BrowserRouter } from 'react-router-dom';
 import {Provider} from 'react-redux';
 
-import Header from './components/Header/HeaderContainer.jsx';
-import Navigation from './components/Navigation/Navigation.jsx';
-import Profile from './components/Profile/ProfileContainer.jsx';
-import Users from './components/Users/UsersContainer.jsx';
-import Login from './components/Login/Login.jsx';
+import Header from './components/Header/HeaderContainer';
+import Navigation from './components/Navigation/Navigation';
+import Profile from './components/Profile/ProfileContainer';
+import Users from './components/Users/UsersContainer';
+import Login from './components/Login/Login';
 import {connect} from 'react-redux';
 import {initializeApp} from './redux/appReducer';
 import { compose } from 'redux';
 import Preloader from './components/Common/Preloader/Preloader';
 import { withSuspense } from './hoc/WithSuspense';
 
-//import DialogsContainer from './components/Dialogs/DialogsContainer.jsx';
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer.jsx'));
-const News = React.lazy(() => import('./components/News/News.jsx'));
-const Music = React.lazy(() => import('./components/Music/Music.jsx'));
-const Settings = React.lazy(() => import('./components/Settings/Settings.jsx'));
+//import DialogsContainer from './components/Dialogs/DialogsContainer';
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const News = React.lazy(() => import('./components/News/News'));
+const Music = React.lazy(() => import('./components/Music/Music'));
+const Settings = React.lazy(() => import('./components/Settings/Settings'));
 
 class App extends React.Component {
 
@@ -61,7 +61,7 @@ class App extends React.Component {
           <Route path="/music" 
               render={ withSuspense(Music)}/>
           <Route path="/users" 
-              render={()=><Users/>}/>
+              render={()=><Users pageTitle="Test Test Test"/>}/>
           <Route path="/news" 
               render={ withSuspense(News)}/>
           <Route path="/login" 
